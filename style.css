@@ -65,6 +65,7 @@ body {
 .header__navigation .navigation__logo {
     grid-column: span 4;
     padding-right: 32px;
+    cursor: pointer;
 }
 
 .header__navigation .navigation__list {
@@ -78,6 +79,7 @@ body {
 .header__navigation .navigation__link:hover,
 .header__navigation .navigation__link--active {
     color: var(--color-accent);
+    transition: 0.3s;
 }
 
 /*======== ARTICLES ========*/
@@ -234,7 +236,7 @@ body {
 .footer__link:hover {
     opacity: 0.8;
 }
-.footer_copyright {
+.footer__copyright {
     font-size: 24px;
     line-height: 28px;
     color: var(--color-grey);
@@ -248,6 +250,7 @@ body {
 .footer__navigation .navigation__logo {
     grid-column: span 2;
     padding-right: 56px;
+    cursor: pointer;
 }
 
 .footer__navigation .navigation__list {
@@ -261,4 +264,5 @@ body {
 .footer__navigation .navigation__link:hover,
 .footer__navigation .navigation__link--active {
     color: var(--color-accent);
+    transition: 0.3s;
 }
