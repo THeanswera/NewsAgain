@@ -9,29 +9,89 @@ const mainNewsTamlate = document.getElementById('main-news-item');
 const smallNewsTamlate = document.getElementById('small-article-item');
 const mainNewsContainer = document.querySelector('.articles__big-column');
 const smallNewsContainer = document.querySelector('.articles__small-column');
+/* <article class="main-article">
+      <div class="main-article__image-container">
+        <img class="main-article__image" src="./images/image1.jpg" alt="Фото новости">
+      </div>
+      <div class="main-article__content">
+        <span class="article__category main-article__category">Технологии</span>
+        <h2 class="main-article__title">Вещи, которые нужно знать перед стажировкой в IT сфере</h2>
+        <p class="main-article__text">Уличные музыканты продолжают радовать фанатов стрит арта. Для этого они исполняют привычные мелодии в новом формате!</p>
+        <span class="article-sourse main-article__sourse">Источник</span>
+      </div>
+    </article> */
+
+const createMainItem = (item) => {
+  const categoryData = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
+  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
+
+  const article = document.createElement('article');
+  const imageContainer = document.createElement('div');
+  const image = document.createElement('img');
+  const content = document.createElement('div');
+  const category = document.createElement('span');
+  const title = document.createElement('h2');
+  const text = document.createElement('p');
+  const sourse = document.createElement('span');
+
+  article.classList.add('main-article')
+  imageContainer.classList.add('main-article__image-container')
+  image.classList.add('main-article__image')
+  content.classList.add('main-article__content')
+  category.classList.add('article__category', 'main-article__category')
+  title.classList.add('main-article__title')
+  text.classList.add('main-article__text')
+  sourse.classList.add('article-sourse', 'main-article__sourse')
+
+  title.textContent = item.title;
+  text.textContent = item.description;
+  image.src = item.image;
+  category.textContent = categoryData.name;
+  sourse.textContent = sourseData.name;
+
+  content.appendChild(category);
+  content.appendChild(title);
+  content.appendChild(text);
+  content.appendChild(sourse);
+  imageContainer.appendChild(image);
+  article.appendChild(imageContainer);
+  article.appendChild(content);
+
+  return article;
+}
+
+const createSmallNewsItem = (item) => {
+  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
+  const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
+
+  const article = document.createElement('article');
+  const textContainer = document.createElement('p')
+  const title = document.createElement('h2');
+  const sourse = document.createElement('span')
+  const date = document.createElement('span')
+
+  article.classList.add('small-article')
+  textContainer.classList.add('small-article__caption')
+  title.classList.add('small-article__title')
+  sourse.classList.add('article-sourse', 'small-article__sourse')
+  date.classList.add('article-date', 'small-article__date')
+
+  title.textContent = item.title;
+  sourse.textContent = sourseData.name;
+  data.textContent = dateData;
+
+  textContainer.appendChild(date);
+  textContainer.appendChild(sourse);
+  article.appendChild(title);
+  article.appendChild(textContainer);
+
+  return article;
+}
 
 mainNews.forEach((item) => {
-  const element = mainNewsTamlate.content.cloneNode(true);
-  const category = data.categories.find((categoryItem) => categoryItem.id === item.category_id).name;
-  const sourse = data.sources.find((sourseItem) => sourseItem.id === item.source_id).name;
-
-  element.querySelector('.main-article__title').textContent = item.title;
-  element.querySelector('.main-article__text').textContent = item.description;
-  element.querySelector('.main-article__image').src = item.image;
-  element.querySelector('.main-article__category').textContent = category;
-  element.querySelector('.main-article__sourse').textContent = sourse;
-
-  mainNewsContainer.appendChild(element);
+  mainNewsContainer.appendChild(createMainItem(item));
 });
 
 smallNews.forEach((item) => {
-  const element = smallNewsTamlate.content.cloneNode(true);
-  const category = data.categories.find((categoryItem) => categoryItem.id === item.category_id).name
-  const date = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'})
-
-  element.querySelector('.small-article__title').textContent = item.title;
-  element.querySelector('.small-article__sourse').textContent = category;
-  element.querySelector('.small-article__date').textContent = date;
-
-  smallNewsContainer.appendChild(element)
+  smallNewsContainer.appendChild(createSmallNewsItem(item))
 })
