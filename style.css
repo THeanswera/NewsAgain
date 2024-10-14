@@ -180,7 +180,7 @@ body {
 
 /*===== Small Article ====*/
 
-.arcticles__small-column {
+.articles__small-column {
     grid-column: 10/ -1;
 }
 .small-article {
