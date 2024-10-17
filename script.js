@@ -30,12 +30,6 @@ const createMainItem = (item) => {
   text.classList.add('main-article__text')
   sourse.classList.add('article-sourse', 'main-article__sourse')
 
-  title.textContent = item.title;
-  text.textContent = item.description;
-  image.src = item.image;
-  category.textContent = categoryData.name;
-  sourse.textContent = sourseData.name;
-
   content.appendChild(category);
   content.appendChild(title);
   content.appendChild(text);
@@ -76,9 +70,39 @@ const createSmallNewsItem = (item) => {
 }
 
 mainNews.forEach((item) => {
-  mainNewsContainer.appendChild(createMainItem(item));
+  const template = document.createElement('template');
+  const categoryData = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
+  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
+
+  template.innerHTML = `
+  <article class="main-article">
+    <div class="main-article__image-container">
+      <img src="${item.image}" alt="Фото новости" class="main-article__image">
+    </div>
+    <div class="main-article__content">
+      <span class="article-category main-article__category">${categoryData.name}</span>
+      <h2 class="main-article__title">${item.title}</h2>
+      <p class="main-article__text">${item.description}}</p>
+      <span class="article-sourse main-article__sourse">${sourseData.name}</span>
+    </div>
+  </article>
+`
+  mainNewsContainer.appendChild(template.content)
 });
 
 smallNews.forEach((item) => {
-  smallNewsContainer.appendChild(createSmallNewsItem(item))
+  const template = document.createElement('template');
+  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
+  const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'})
+
+  template.innerHTML =`
+  <article class="smaill-article">
+    <h2 class="small-article__title">${item.title}</h2>
+    <p class="small-article__caption">
+      <span class="article-date small-article__date">${dateData}</span>
+      <span class="small-article-sourse article__sourse">${sourseData.name}</span>
+    </p>
+  </article>
+  `
+  smallNewsContainer.appendChild(template.content)
 })
