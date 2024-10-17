@@ -5,21 +5,8 @@ const data = {
 const mainNews = data.items.slice(0, 3);
 const smallNews = data.items.slice(3, 12);
 
-const mainNewsTamlate = document.getElementById('main-news-item');
-const smallNewsTamlate = document.getElementById('small-article-item');
 const mainNewsContainer = document.querySelector('.articles__big-column');
 const smallNewsContainer = document.querySelector('.articles__small-column');
-/* <article class="main-article">
-      <div class="main-article__image-container">
-        <img class="main-article__image" src="./images/image1.jpg" alt="Фото новости">
-      </div>
-      <div class="main-article__content">
-        <span class="article__category main-article__category">Технологии</span>
-        <h2 class="main-article__title">Вещи, которые нужно знать перед стажировкой в IT сфере</h2>
-        <p class="main-article__text">Уличные музыканты продолжают радовать фанатов стрит арта. Для этого они исполняют привычные мелодии в новом формате!</p>
-        <span class="article-sourse main-article__sourse">Источник</span>
-      </div>
-    </article> */
 
 const createMainItem = (item) => {
   const categoryData = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
@@ -78,7 +65,7 @@ const createSmallNewsItem = (item) => {
 
   title.textContent = item.title;
   sourse.textContent = sourseData.name;
-  data.textContent = dateData;
+  date.textContent = dateData;
 
   textContainer.appendChild(date);
   textContainer.appendChild(sourse);
