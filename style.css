@@ -134,7 +134,7 @@ body {
     font-weight: 700;
 }
 
-.article-sourse {
+.article__sourse {
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -207,7 +207,7 @@ body {
 
 }
 
-.article-date + .article-sourse::before{
+.article-date + .article__sourse::before{
     content: "   •   ";
 }
 

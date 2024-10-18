@@ -8,65 +8,16 @@ const smallNews = data.items.slice(3, 12);
 const mainNewsContainer = document.querySelector('.articles__big-column');
 const smallNewsContainer = document.querySelector('.articles__small-column');
 
-const createMainItem = (item) => {
-  const categoryData = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
-  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
-
-  const article = document.createElement('article');
-  const imageContainer = document.createElement('div');
-  const image = document.createElement('img');
-  const content = document.createElement('div');
-  const category = document.createElement('span');
-  const title = document.createElement('h2');
-  const text = document.createElement('p');
-  const sourse = document.createElement('span');
-
-  article.classList.add('main-article')
-  imageContainer.classList.add('main-article__image-container')
-  image.classList.add('main-article__image')
-  content.classList.add('main-article__content')
-  category.classList.add('article__category', 'main-article__category')
-  title.classList.add('main-article__title')
-  text.classList.add('main-article__text')
-  sourse.classList.add('article-sourse', 'main-article__sourse')
-
-  content.appendChild(category);
-  content.appendChild(title);
-  content.appendChild(text);
-  content.appendChild(sourse);
-  imageContainer.appendChild(image);
-  article.appendChild(imageContainer);
-  article.appendChild(content);
-
-  return article;
-}
-
-const createSmallNewsItem = (item) => {
-  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
-  const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
-
-  const article = document.createElement('article');
-  const textContainer = document.createElement('p')
-  const title = document.createElement('h2');
-  const sourse = document.createElement('span')
-  const date = document.createElement('span')
-
-  article.classList.add('small-article')
-  textContainer.classList.add('small-article__caption')
-  title.classList.add('small-article__title')
-  sourse.classList.add('article-sourse', 'small-article__sourse')
-  date.classList.add('article-date', 'small-article__date')
-
-  title.textContent = item.title;
-  sourse.textContent = sourseData.name;
-  date.textContent = dateData;
-
-  textContainer.appendChild(date);
-  textContainer.appendChild(sourse);
-  article.appendChild(title);
-  article.appendChild(textContainer);
-
-  return article;
+// Экранирование строк
+const escapeString = (string) => {
+  const symbols = {
+    '&': '&amp',
+    '<': '&lt',
+    '>': '&gt'
+  }
+  return string.replace(/[&<>]/g, (tag) => {
+    return symbols[tag] || tag;
+  })
 }
 
 mainNews.forEach((item) => {
@@ -77,13 +28,13 @@ mainNews.forEach((item) => {
   template.innerHTML = `
   <article class="main-article">
     <div class="main-article__image-container">
-      <img src="${item.image}" alt="Фото новости" class="main-article__image">
+      <img src="${encodeURI(item.image)}" alt="Фото новости" class="main-article__image">
     </div>
     <div class="main-article__content">
-      <span class="article-category main-article__category">${categoryData.name}</span>
-      <h2 class="main-article__title">${item.title}</h2>
-      <p class="main-article__text">${item.description}}</p>
-      <span class="article-sourse main-article__sourse">${sourseData.name}</span>
+      <span class="article__category main-article__category">${escapeString(categoryData.name)}</span>
+      <h2 class="main-article__title">${escapeString(item.title)}</h2>
+      <p class="main-article__text">${escapeString(item.description)}</p>
+      <span class="article__sourse main-article__sourse">${escapeString(sourseData.name)}</span>
     </div>
   </article>
 `
@@ -96,11 +47,11 @@ smallNews.forEach((item) => {
   const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'})
 
   template.innerHTML =`
-  <article class="smaill-article">
-    <h2 class="small-article__title">${item.title}</h2>
+  <article class="small-article">
+    <h2 class="small-article__title">${escapeString(item.title)}</h2>
     <p class="small-article__caption">
       <span class="article-date small-article__date">${dateData}</span>
-      <span class="small-article-sourse article__sourse">${sourseData.name}</span>
+      <span class="small-article-sourse article__sourse">${escapeString(sourseData.name)}</span>
     </p>
   </article>
   `
