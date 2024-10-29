@@ -8,39 +8,6 @@ const smallNews = data.items.slice(3, 12);
 const mainNewsContainer = document.querySelector('.articles__big-column');
 const smallNewsContainer = document.querySelector('.articles__small-column');
 
-const createMainItem = (item) => {
-  const categoryData = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
-  const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
-
-  const article = document.createElement('article');
-  const imageContainer = document.createElement('div');
-  const image = document.createElement('img');
-  const content = document.createElement('div');
-  const category = document.createElement('span');
-  const title = document.createElement('h2');
-  const text = document.createElement('p');
-  const sourse = document.createElement('span');
-
-  article.classList.add('main-article')
-  imageContainer.classList.add('main-article__image-container')
-  image.classList.add('main-article__image')
-  content.classList.add('main-article__content')
-  category.classList.add('article__category', 'main-article__category')
-  title.classList.add('main-article__title')
-  text.classList.add('main-article__text')
-  sourse.classList.add('article-sourse', 'main-article__sourse')
-
-  content.appendChild(category);
-  content.appendChild(title);
-  content.appendChild(text);
-  content.appendChild(sourse);
-  imageContainer.appendChild(image);
-  article.appendChild(imageContainer);
-  article.appendChild(content);
-
-  return article;
-}
-
 const createSmallNewsItem = (item) => {
   const sourseData = data.sources.find((sourseItem) => sourseItem.id === item.source_id);
   const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
@@ -96,11 +63,11 @@ smallNews.forEach((item) => {
   const dateData = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'})
 
   template.innerHTML =`
-  <article class="smaill-article">
+  <article class="small-article">
     <h2 class="small-article__title">${item.title}</h2>
     <p class="small-article__caption">
       <span class="article-date small-article__date">${dateData}</span>
-      <span class="small-article-sourse article__sourse">${sourseData.name}</span>
+      <span class="small-article-sourse article-sourse">${sourseData.name}</span>
     </p>
   </article>
   `
