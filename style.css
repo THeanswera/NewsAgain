@@ -151,7 +151,11 @@ body {
 }
 
 .main-article__category {
+    font-size: 24px;
     margin-bottom: 7px;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .main-article__title {
