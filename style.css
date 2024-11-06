@@ -151,7 +151,7 @@ body {
 }
 
 .main-article__category {
-    font-size: 24px;
+    font-size: 14px;
     margin-bottom: 7px;
     color: var(--color-accent);
     text-transform: uppercase;
@@ -210,8 +210,10 @@ body {
     
 
 }
-
-.article-date + .article__sourse::before{
+.article-source {
+    color: var(--color-grey)
+}
+.article-date + .small-article-source::before{
     content: "   •   ";
 }
 
